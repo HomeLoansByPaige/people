@@ -92,6 +92,9 @@ main .wrap { padding-block: 40px 0; display: grid; gap: 44px; }
 .jump { display: grid; gap: 10px; }
 .jump-row { display: flex; flex-wrap: wrap; gap: 8px; }
 .jump-row a { text-decoration: none; color: var(--navy); background: var(--white); border: 1px solid var(--gray); border-radius: 999px; padding: 7px 14px; font-size: 14.5px; font-weight: 500; }
+.jump-row a.me { color: var(--white); background: var(--copper); border-color: var(--copper); font-weight: 600; }
+.jump-row a.me:hover, .jump-row a.me:focus-visible { color: var(--white); background: #A44E2A; }
+.cta { scroll-margin-top: 16px; }
 .jump-row a:hover, .jump-row a:focus-visible { border-color: var(--copper); color: var(--copper); }
 .card.flash { border-color: var(--copper); box-shadow: 0 0 0 3px var(--copper-tint); }
 .card { scroll-margin-top: 16px; }
@@ -196,7 +199,7 @@ main .wrap { padding-block: 40px 0; display: grid; gap: 44px; }
       <p>Text or email me with what you need and I'll connect you directly.</p>
     </section>
 
-    <section class="cta" aria-labelledby="start">
+    <section class="cta" id="call-paige" aria-labelledby="start">
       <div class="cta-head">
         <div>
           <span class="eyebrow">Anything mortgage or real estate related</span>
@@ -206,8 +209,8 @@ main .wrap { padding-block: 40px 0; display: grid; gap: 44px; }
         <a class="save" data-track="save-contact" href="https://dl.dropboxusercontent.com/scl/fi/67s8d1wp5nmmhdo9lihzf/Paige-Martinez-Home-Loans-by-Paige.vcf?rlkey=otp9khb57qnee6b5pzig4z335&amp;dl=1" target="_blank" rel="noopener">Save my contact to your phone</a>
       </div>
       <div class="cta-cols">
-        <p>Buying your next home. Selling this one. Refinancing when rates drop. Wondering what your home is worth. Helping your kids buy their first. Those are your mortgage moments, and every one of them starts with a call to me.</p>
-        <p>The same goes for the people in your life. When a friend, family member, or coworker says mortgage, refinance, home value, or "should I...?" tell them to call Paige. If I can't help directly, I'll point them to someone who can.</p>
+        <p>Buying your next home. Selling this one. Refinancing if rates drop. Tapping your equity with a home equity loan. Wondering what your home is worth. Those are your mortgage moments, and every one of them starts with a call to me.</p>
+        <p>The same goes for the people in your life. When they ask those same questions, tell them to call Paige. If I can't help directly, I'll point them to someone who can.</p>
       </div>
       <div class="cta-contact">
         <div class="line"><span>Cell</span><strong>602-448-4470</strong><a class="act" href="tel:+16024484470">Call</a><a class="act ghost" href="sms:+16024484470">Text</a></div>
@@ -320,10 +323,9 @@ GROUPS.forEach(g => {
     }
     const sb = el("button", "share-btn", "Share"); sb.type = "button"; sb.dataset.share = PEOPLE.indexOf(v); sb.setAttribute("aria-label", "Share " + v.company);
     sb.insertAdjacentHTML("afterbegin", SHARE_ICON); links.appendChild(sb);
-    const fb = el("a", "fb", "How did they do? Tell Paige"); fb.href = "sms:+16024484470?&body=" + encodeURIComponent("Feedback on " + v.company + ": "); links.appendChild(fb);
     const key = card.id;
     links.querySelectorAll("a, button").forEach(x => {
-      const kind = x.classList.contains("fb") ? "feedback" : x.dataset.share !== undefined ? "share" : (x.textContent || "").trim().toLowerCase() === "call" ? "call" : (x.textContent || "").trim().toLowerCase() === "text" ? "text" : (x.textContent || "").trim().toLowerCase() === "email" ? "email" : "website";
+      const kind = x.dataset.share !== undefined ? "share" : (x.textContent || "").trim().toLowerCase() === "call" ? "call" : (x.textContent || "").trim().toLowerCase() === "text" ? "text" : (x.textContent || "").trim().toLowerCase() === "email" ? "email" : "website";
       x.dataset.track = kind + "/" + key;
     });
     if (links.childNodes.length) card.appendChild(links);
@@ -334,6 +336,7 @@ GROUPS.forEach(g => {
 });
 
 const jump = document.getElementById("jump");
+{ const me = el("a", "me", "Mortgage & real estate"); me.href = "#call-paige"; me.dataset.track = "jump/call-paige"; jump.appendChild(me); }
 PEOPLE.forEach(v => {
   const id = (v.logo || v.company).toLowerCase().replace(/[^a-z0-9]+/g, "-");
   const a = el("a", null, v.chip || v.category); a.href = "#" + id; a.dataset.track = "jump/" + id; jump.appendChild(a);
