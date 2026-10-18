@@ -76,6 +76,10 @@ main .wrap { padding-block: 40px 0; display: grid; gap: 44px; }
 .card > * { min-width: 0; }
 .copy { font: inherit; font-size: 12.5px; font-weight: 600; color: var(--slate); background: var(--white); border: 1px solid var(--gray); border-radius: 6px; padding: 2px 8px; cursor: pointer; }
 .copy:hover { color: var(--navy); border-color: var(--slate); }
+.share-btn { font: inherit; font-size: 13px; font-weight: 600; color: var(--copper); background: var(--white); border: 1px solid var(--copper); border-radius: 6px; padding: 4px 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+.share-btn:hover { background: var(--copper-tint); }
+.share-btn svg { width: 14px; height: 14px; }
+.share-page { margin-top: 16px; font-size: 15px; padding: 8px 16px; }
 
 .ask { background: var(--white); border: 1px solid var(--gray); border-radius: 10px; padding: 22px; display: grid; gap: 14px; }
 .ask .sec-head { margin: 0; }
@@ -149,6 +153,7 @@ main .wrap { padding-block: 40px 0; display: grid; gap: 44px; }
       <h1>Paige's People</h1>
       <p class="lede">Every homeowner needs a short list of people they can call. This is mine.</p>
       <p class="sub">These are the pros I trust with my own home and my clients' homes. Use them, share them, and if you need someone who isn't here, just ask me.</p>
+      <button class="share-btn share-page" type="button" id="share-page">Share Paige's People</button>
     </div>
   </div>
 </section>
@@ -209,6 +214,7 @@ const GROUPS = [
   { id: "home", eyebrow: "Around the house and on the road", title: "Home and auto services", blurb: "The calls you make once you have the keys. When you reach out, tell them Paige sent you." },
   { id: "protect", eyebrow: "Protecting what you've built", title: "Insurance, legal, wealth and title", blurb: "The people who help you protect your home, your family and your plans for the future." }
 ];
+const SHARE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>';
 const PEOPLE = [
   { group: "home", category: "HVAC, plumbing, ducts and dryer vents", company: "Canilu Air", person: "Carlos Mercado", phone: "602-609-3480", email: "info@caniluair.com", logo: "canilu", url: "https://www.caniluair.com" },
   { group: "home", category: "Electrician", company: "Blue Mountain Electric", person: "Michael Bennett", phone: "602-834-3885", email: "service@bluemountainelectricaz.com", logo: "bluemtn", plate: "dark", url: "https://www.bluemountainelectricaz.com" },
@@ -261,7 +267,7 @@ GROUPS.forEach(g => {
   sec.appendChild(head);
   const grid = el("div", "grid");
   people.forEach(v => {
-    const card = el("article", "card");
+    const card = el("article", "card"); card.id = (v.logo || v.company).toLowerCase().replace(/[^a-z0-9]+/g, "-");
     const lb = el("div", "logo" + (v.plate === "dark" ? " dark" : ""));
     if (v.logo && LOGOS[v.logo]) { const li = el("img"); li.src = LOGOS[v.logo]; li.alt = v.company + " logo"; lb.appendChild(li); }
     else { lb.appendChild(el("div", "name", v.company)); }
@@ -283,6 +289,8 @@ GROUPS.forEach(g => {
       const m = el("span", "phone"); m.appendChild(el("strong", null, v.email));
       const b = el("button", "copy", "Copy"); b.type = "button"; b.dataset.copy = v.email; m.appendChild(b); links.appendChild(m);
     }
+    const sb = el("button", "share-btn", "Share"); sb.type = "button"; sb.dataset.share = PEOPLE.indexOf(v); sb.setAttribute("aria-label", "Share " + v.company);
+    sb.insertAdjacentHTML("afterbegin", SHARE_ICON); links.appendChild(sb);
     if (links.childNodes.length) card.appendChild(links);
     grid.appendChild(card);
   });
@@ -294,7 +302,28 @@ const ask = document.getElementById("ask-list");
 ASK_ME.forEach(t => ask.appendChild(el("li", null, t)));
 if (!ASK_ME.length) ask.hidden = true;
 
+const SITE = "https://people.homeloansbypaige.com";
+async function shareIt(data, btn) {
+  if (navigator.share) {
+    try { await navigator.share(data); return; } catch (err) { if (err && err.name === "AbortError") return; }
+  }
+  const all = (data.text ? data.text + "\n" : "") + (data.url || "");
+  try { await navigator.clipboard.writeText(all); const t = btn.lastChild; const old = t.textContent; t.textContent = "Copied"; setTimeout(() => { t.textContent = old; }, 1600); }
+  catch (err) { window.prompt && window.prompt("Copy this:", all); }
+}
 document.addEventListener("click", e => {
+  const sp = e.target.closest("#share-page");
+  if (sp) { shareIt({ title: "Paige's People", text: "Paige Martinez's trusted short list of home, insurance, legal, wealth and title pros:", url: SITE }, sp); return; }
+  const sh = e.target.closest("button[data-share]");
+  if (sh) {
+    const v = PEOPLE[+sh.dataset.share];
+    const lines = [v.company + " (" + v.category + ")", v.person];
+    if (v.phone) lines.push(v.phone);
+    if (v.email) lines.push(v.email);
+    if (v.url) lines.push(v.url.replace(/^https?:\/\//, "").replace(/\/$/, ""));
+    shareIt({ title: v.company, text: "Recommended by Paige Martinez, Home Loans by Paige:\n" + lines.join("\n") + "\n\nMore of Paige's trusted pros:", url: SITE + "/#" + sh.closest(".card").id }, sh);
+    return;
+  }
   const b = e.target.closest("button.copy"); if (!b) return;
   const text = b.dataset.copy;
   const done = () => { b.textContent = "Copied"; setTimeout(() => { b.textContent = "Copy"; }, 1500); };
