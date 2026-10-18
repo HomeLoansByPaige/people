@@ -76,6 +76,11 @@ main .wrap { padding-block: 40px 0; display: grid; gap: 44px; }
 .card > * { min-width: 0; }
 .copy { font: inherit; font-size: 12.5px; font-weight: 600; color: var(--slate); background: var(--white); border: 1px solid var(--gray); border-radius: 6px; padding: 2px 8px; cursor: pointer; }
 .copy:hover { color: var(--navy); border-color: var(--slate); }
+.act { font: inherit; font-size: 13px; font-weight: 600; text-decoration: none; color: var(--white); background: var(--copper); border: 1px solid var(--copper); border-radius: 6px; padding: 3px 12px; display: inline-flex; align-items: center; }
+.act:hover { background: #A44E2A; }
+.act.ghost { color: var(--copper); background: var(--white); }
+.act.ghost:hover { background: var(--copper-tint); }
+.cta .act.ghost { color: var(--white); background: transparent; border-color: #E0A487; }
 .share-btn { font: inherit; font-size: 13px; font-weight: 600; color: var(--copper); background: var(--white); border: 1px solid var(--copper); border-radius: 6px; padding: 4px 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
 .share-btn:hover { background: var(--copper-tint); }
 .share-btn svg { width: 14px; height: 14px; }
@@ -185,8 +190,8 @@ main .wrap { padding-block: 40px 0; display: grid; gap: 44px; }
         <p>The same goes for the people in your life. When a friend, family member, or coworker says mortgage, refinance, home value, or "should I...?" tell them to call Paige. If I can't help directly, I'll point them to someone who can.</p>
       </div>
       <div class="cta-contact">
-        <div class="line"><span>Cell</span><strong>602-448-4470</strong><button class="copy" type="button" data-copy="602-448-4470">Copy</button></div>
-        <div class="line"><span>Email</span><strong>paige@homeloansbypaige.com</strong><button class="copy" type="button" data-copy="paige@homeloansbypaige.com">Copy</button></div>
+        <div class="line"><span>Cell</span><strong>602-448-4470</strong><a class="act" href="tel:+16024484470">Call</a><a class="act ghost" href="sms:+16024484470">Text</a></div>
+        <div class="line"><span>Email</span><strong>paige@homeloansbypaige.com</strong><a class="act ghost" href="mailto:paige@homeloansbypaige.com">Email</a></div>
         <div class="line"><span>Web</span><a href="https://www.homeloansbypaige.com" target="_blank" rel="noopener" style="color:var(--white)">homeloansbypaige.com</a></div>
       </div>
     </section>
@@ -283,11 +288,15 @@ GROUPS.forEach(g => {
     if (v.url) { const a = el("a", null, domain(v.url) + " ↗"); a.href = v.url; a.target = "_blank"; a.rel = "noopener"; links.appendChild(a); }
     if (v.phone) {
       const p = el("span", "phone"); p.appendChild(el("strong", null, v.phone));
-      const b = el("button", "copy", "Copy"); b.type = "button"; b.dataset.copy = v.phone; p.appendChild(b); links.appendChild(p);
+      const digits = "+1" + v.phone.replace(/\D/g, "");
+      const call = el("a", "act", "Call"); call.href = "tel:" + digits; call.setAttribute("aria-label", "Call " + v.company);
+      const txt = el("a", "act ghost", "Text"); txt.href = "sms:" + digits + "?&body=" + encodeURIComponent("Hi, Paige Martinez referred me to you."); txt.setAttribute("aria-label", "Text " + v.company);
+      p.appendChild(call); p.appendChild(txt); links.appendChild(p);
     }
     if (v.email) {
       const m = el("span", "phone"); m.appendChild(el("strong", null, v.email));
-      const b = el("button", "copy", "Copy"); b.type = "button"; b.dataset.copy = v.email; m.appendChild(b); links.appendChild(m);
+      const em = el("a", "act ghost", "Email"); em.href = "mailto:" + v.email + "?subject=" + encodeURIComponent("Referred by Paige Martinez") + "&body=" + encodeURIComponent("Hi, Paige Martinez referred me to you.");
+      em.setAttribute("aria-label", "Email " + v.company); m.appendChild(em); links.appendChild(m);
     }
     const sb = el("button", "share-btn", "Share"); sb.type = "button"; sb.dataset.share = PEOPLE.indexOf(v); sb.setAttribute("aria-label", "Share " + v.company);
     sb.insertAdjacentHTML("afterbegin", SHARE_ICON); links.appendChild(sb);
