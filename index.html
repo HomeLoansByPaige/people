@@ -373,7 +373,7 @@ document.addEventListener("click", e => {
     if (v.phone) lines.push(v.phone);
     if (v.email) lines.push(v.email);
     if (v.url) lines.push(v.url.replace(/^https?:\/\//, "").replace(/\/$/, ""));
-    shareIt({ title: v.company, text: "Here is the contact information I promised. Check out the webpage above for the rest of my \"people.\"\n\nRecommended by Paige Martinez, Home Loans by Paige:\n" + lines.join("\n"), url: SITE + "/#" + sh.closest(".card").id }, sh);
+    shareIt({ title: v.company, text: "Here is the contact information I promised. Check out the webpage above for the rest of my \"people.\"\n\nRecommended by Paige Martinez, Home Loans by Paige:\n\n" + lines.join("\n"), url: SITE + "/#" + sh.closest(".card").id }, sh);
     return;
   }
   const b = e.target.closest("button.copy"); if (!b) return;
