@@ -7,6 +7,14 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <meta name="apple-mobile-web-app-title" content="Paige's People">
 <meta name="theme-color" content="#1A2230">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://people.homeloansbypaige.com/">
+<meta property="og:title" content="Paige's People">
+<meta property="og:description" content="My trusted short list of home, insurance, legal, wealth and title pros. Tap to call, text or share.">
+<meta property="og:image" content="https://people.homeloansbypaige.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="description" content="Paige Martinez's trusted short list of home, insurance, legal, wealth and title pros in the Phoenix area.">
 <style>html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Paige's People</title>
@@ -81,6 +89,14 @@ main .wrap { padding-block: 40px 0; display: grid; gap: 44px; }
 .act.ghost { color: var(--copper); background: var(--white); }
 .act.ghost:hover { background: var(--copper-tint); }
 .cta .act.ghost { color: var(--white); background: transparent; border-color: #E0A487; }
+.jump { display: grid; gap: 10px; }
+.jump-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.jump-row a { text-decoration: none; color: var(--navy); background: var(--white); border: 1px solid var(--gray); border-radius: 999px; padding: 7px 14px; font-size: 14.5px; font-weight: 500; }
+.jump-row a:hover, .jump-row a:focus-visible { border-color: var(--copper); color: var(--copper); }
+.card.flash { border-color: var(--copper); box-shadow: 0 0 0 3px var(--copper-tint); }
+.card { scroll-margin-top: 16px; }
+.fb { font-size: 13px; color: var(--slate); text-decoration: underline; text-underline-offset: 2px; }
+.fb:hover { color: var(--copper); }
 .share-btn { font: inherit; font-size: 13px; font-weight: 600; color: var(--copper); background: var(--white); border: 1px solid var(--copper); border-radius: 6px; padding: 4px 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
 .share-btn:hover { background: var(--copper-tint); }
 .share-btn svg { width: 14px; height: 14px; }
@@ -158,13 +174,17 @@ main .wrap { padding-block: 40px 0; display: grid; gap: 44px; }
       <h1>Paige's People</h1>
       <p class="lede">Every homeowner needs a short list of people they can call. This is mine.</p>
       <p class="sub">These are the pros I trust with my own home and my clients' homes. Use them, share them, and if you need someone who isn't here, just ask me.</p>
-      <button class="share-btn share-page" type="button" id="share-page">Share Paige's People</button>
+      <button class="share-btn share-page" type="button" id="share-page" data-track="share/page">Share Paige's People</button>
     </div>
   </div>
 </section>
 
 <main>
   <div class="wrap">
+    <nav class="jump" aria-label="Find a pro">
+      <span class="eyebrow">I need a...</span>
+      <div class="jump-row" id="jump"></div>
+    </nav>
     <div id="directory" style="display:grid;gap:44px"></div>
 
     <section class="ask" aria-labelledby="ask-me">
@@ -183,7 +203,7 @@ main .wrap { padding-block: 40px 0; display: grid; gap: 44px; }
           <h2 id="start">Think "Call Paige"</h2>
         </div>
         <figure class="qr"><img src="data:image/png;base64,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" alt="QR code to save Paige Martinez to your phone contacts"><figcaption>Scan with your phone camera to save my contact</figcaption></figure>
-        <a class="save" href="https://dl.dropboxusercontent.com/scl/fi/67s8d1wp5nmmhdo9lihzf/Paige-Martinez-Home-Loans-by-Paige.vcf?rlkey=otp9khb57qnee6b5pzig4z335&amp;dl=1" target="_blank" rel="noopener">Save my contact to your phone</a>
+        <a class="save" data-track="save-contact" href="https://dl.dropboxusercontent.com/scl/fi/67s8d1wp5nmmhdo9lihzf/Paige-Martinez-Home-Loans-by-Paige.vcf?rlkey=otp9khb57qnee6b5pzig4z335&amp;dl=1" target="_blank" rel="noopener">Save my contact to your phone</a>
       </div>
       <div class="cta-cols">
         <p>Buying your next home. Selling this one. Refinancing when rates drop. Wondering what your home is worth. Helping your kids buy their first. Those are your mortgage moments, and every one of them starts with a call to me.</p>
@@ -221,22 +241,22 @@ const GROUPS = [
 ];
 const SHARE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>';
 const PEOPLE = [
-  { group: "home", category: "HVAC, plumbing, ducts and dryer vents", company: "Canilu Air", person: "Carlos Mercado", phone: "602-609-3480", email: "info@caniluair.com", logo: "canilu", url: "https://www.caniluair.com" },
-  { group: "home", category: "Electrician", company: "Blue Mountain Electric", person: "Michael Bennett", phone: "602-834-3885", email: "service@bluemountainelectricaz.com", logo: "bluemtn", plate: "dark", url: "https://www.bluemountainelectricaz.com" },
-  { group: "home", category: "Handyman", company: "We Know the Drill Handyman Services", person: "Jason Williams", phone: "480-287-2831", email: "info@weknowthedrill.biz", url: "http://www.weknowthedrill.biz" },
-  { group: "home", category: "Commercial general contracting", company: "Precision Services Group", person: "Tony Newport", tag: "Commercial only", phone: "602-750-7795", email: "tnewport@precision-sg.net", logo: "psg", url: "https://www.precision-sg.net" },
-  { group: "home", category: "Pest control", company: "True Sight Pest Control", person: "Dillon Gomez", note: "Paige's son-in-law", tag: "Family", phone: "602-425-0759", email: "truesightpestcontrol@gmail.com", logo: "truesight", plate: "dark", url: "https://truesightpestcontrol.com" },
-  { group: "home", category: "Tile and flooring", company: "Cardinal Floor Covering", person: "Randy Martinez", note: "Paige's husband", tag: "Family", phone: "602-558-7796", email: "randy@cardinalfloorcovering.com", logo: "cardinal", plate: "dark", url: "https://cardinalfloorcovering.com" },
-  { group: "home", category: "Professional cleaning", company: "Disinfecting Divas", person: "Audra Garcia and Tanya Stevens", phone: "480-486-2709", email: "information@disinfectingdivas.com", logo: "divas", url: "https://www.disinfectingdivas.com" },
-  { group: "home", category: "Attics and insulation", company: "Greater Home Efficiency", person: "Dakota Davis and Joey Rohrer", phone: "480-478-9861", email: "contact@ghefficiency.com", logo: "ghe", plate: "dark", url: "https://ghefficiency.com" },
-  { group: "home", category: "Auto glass", company: "Camelback Auto Glass", person: "Michael O'Connell", phone: "480-696-5475", email: "info@camelbackautoglass.com", logo: "camelback", url: "https://www.camelbackautoglass.com" },
+  { group: "home", category: "HVAC, plumbing, ducts and dryer vents", company: "Canilu Air", chip: "HVAC & plumbing", person: "Carlos Mercado", phone: "602-609-3480", email: "info@caniluair.com", logo: "canilu", url: "https://www.caniluair.com" },
+  { group: "home", category: "Electrician", company: "Blue Mountain Electric", chip: "Electrician", person: "Michael Bennett", phone: "602-834-3885", email: "service@bluemountainelectricaz.com", logo: "bluemtn", plate: "dark", url: "https://www.bluemountainelectricaz.com" },
+  { group: "home", category: "Handyman", company: "We Know the Drill Handyman Services", chip: "Handyman", person: "Jason Williams", phone: "480-287-2831", email: "info@weknowthedrill.biz", url: "http://www.weknowthedrill.biz" },
+  { group: "home", category: "Commercial general contracting", company: "Precision Services Group", chip: "Commercial contractor", person: "Tony Newport", tag: "Commercial only", phone: "602-750-7795", email: "tnewport@precision-sg.net", logo: "psg", url: "https://www.precision-sg.net" },
+  { group: "home", category: "Pest control", company: "True Sight Pest Control", chip: "Pest control", person: "Dillon Gomez", note: "Paige's son-in-law", tag: "Family", phone: "602-425-0759", email: "truesightpestcontrol@gmail.com", logo: "truesight", plate: "dark", url: "https://truesightpestcontrol.com" },
+  { group: "home", category: "Tile and flooring", company: "Cardinal Floor Covering", chip: "Flooring", person: "Randy Martinez", note: "Paige's husband", tag: "Family", phone: "602-558-7796", email: "randy@cardinalfloorcovering.com", logo: "cardinal", plate: "dark", url: "https://cardinalfloorcovering.com" },
+  { group: "home", category: "Professional cleaning", company: "Disinfecting Divas", chip: "Cleaning", person: "Audra Garcia and Tanya Stevens", phone: "480-486-2709", email: "information@disinfectingdivas.com", logo: "divas", url: "https://www.disinfectingdivas.com" },
+  { group: "home", category: "Attics and insulation", company: "Greater Home Efficiency", chip: "Insulation", person: "Dakota Davis and Joey Rohrer", phone: "480-478-9861", email: "contact@ghefficiency.com", logo: "ghe", plate: "dark", url: "https://ghefficiency.com" },
+  { group: "home", category: "Auto glass", company: "Camelback Auto Glass", chip: "Auto glass", person: "Michael O'Connell", phone: "480-696-5475", email: "info@camelbackautoglass.com", logo: "camelback", url: "https://www.camelbackautoglass.com" },
 
-  { group: "protect", category: "Home and auto insurance", company: "Goosehead Insurance", person: "Chase Feist", phone: "480-618-6494", email: "chase.feist@goosehead.com", logo: "goosehead", url: "https://goosehead.com/Chase-Feist" },
-  { group: "protect", category: "Life and health insurance", company: "Kierland Life and Health Insurance", person: "Teresa Ferrin", phone: "480-654-0201", email: "teresa@kierlandlife.com", url: "https://kierlandlife.com" },
-  { group: "protect", category: "Title and escrow", company: "Old Republic Title, Kierland", person: "Aly Nirk", phone: "480-596-2060", email: "anirk@ortc.com", logo: "ort", url: "https://www.oldrepublictitle.com/arizona/kierland" },
-  { group: "protect", category: "Legal plans", company: "LegalShield", person: "Dr. Suzie Schumaker", phone: "402-210-1275", email: "drsuziephd@gmail.com", logo: "legalshield", url: "https://drsuziephd.legalshield.com" },
-  { group: "protect", category: "Estate planning", company: "The Law Office of Libby Banks", person: "Colton Powell", note: "Associate Attorney", phone: "602-375-6752", email: "colton@libbybanks.com", logo: "libby", url: "https://www.libbybanks.com" },
-  { group: "protect", category: "Wealth management", company: "SeaCrest Wealth Management", person: "Daniel Moskow", phone: "925-683-4689", email: "dmoskow@seacrestwm.com", logo: "seacrest", url: "https://www.seacrestwm.com" }
+  { group: "protect", category: "Home and auto insurance", company: "Goosehead Insurance", chip: "Home & auto insurance", person: "Chase Feist", phone: "480-618-6494", email: "chase.feist@goosehead.com", logo: "goosehead", url: "https://goosehead.com/Chase-Feist" },
+  { group: "protect", category: "Life and health insurance", company: "Kierland Life and Health Insurance", chip: "Life & health insurance", person: "Teresa Ferrin", phone: "480-654-0201", email: "teresa@kierlandlife.com", url: "https://kierlandlife.com" },
+  { group: "protect", category: "Title and escrow", company: "Old Republic Title, Kierland", chip: "Title & escrow", person: "Aly Nirk", phone: "480-596-2060", email: "anirk@ortc.com", logo: "ort", url: "https://www.oldrepublictitle.com/arizona/kierland" },
+  { group: "protect", category: "Legal plans", company: "LegalShield", chip: "Legal plans", person: "Dr. Suzie Schumaker", phone: "402-210-1275", email: "drsuziephd@gmail.com", logo: "legalshield", url: "https://drsuziephd.legalshield.com" },
+  { group: "protect", category: "Estate planning", company: "The Law Office of Libby Banks", chip: "Estate planning", person: "Colton Powell", note: "Associate Attorney", phone: "602-375-6752", email: "colton@libbybanks.com", logo: "libby", url: "https://www.libbybanks.com" },
+  { group: "protect", category: "Wealth management", company: "SeaCrest Wealth Management", chip: "Wealth management", person: "Daniel Moskow", phone: "925-683-4689", email: "dmoskow@seacrestwm.com", logo: "seacrest", url: "https://www.seacrestwm.com" }
 ];
 const ASK_ME = [];
 /* Logos are embedded so they load for every viewer. Key matches the logo field above. */
@@ -300,6 +320,12 @@ GROUPS.forEach(g => {
     }
     const sb = el("button", "share-btn", "Share"); sb.type = "button"; sb.dataset.share = PEOPLE.indexOf(v); sb.setAttribute("aria-label", "Share " + v.company);
     sb.insertAdjacentHTML("afterbegin", SHARE_ICON); links.appendChild(sb);
+    const fb = el("a", "fb", "How did they do? Tell Paige"); fb.href = "sms:+16024484470?&body=" + encodeURIComponent("Feedback on " + v.company + ": "); links.appendChild(fb);
+    const key = card.id;
+    links.querySelectorAll("a, button").forEach(x => {
+      const kind = x.classList.contains("fb") ? "feedback" : x.dataset.share !== undefined ? "share" : (x.textContent || "").trim().toLowerCase() === "call" ? "call" : (x.textContent || "").trim().toLowerCase() === "text" ? "text" : (x.textContent || "").trim().toLowerCase() === "email" ? "email" : "website";
+      x.dataset.track = kind + "/" + key;
+    });
     if (links.childNodes.length) card.appendChild(links);
     grid.appendChild(card);
   });
@@ -307,6 +333,20 @@ GROUPS.forEach(g => {
   dir.appendChild(sec);
 });
 
+const jump = document.getElementById("jump");
+PEOPLE.forEach(v => {
+  const id = (v.logo || v.company).toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  const a = el("a", null, v.chip || v.category); a.href = "#" + id; a.dataset.track = "jump/" + id; jump.appendChild(a);
+});
+jump.addEventListener("click", e => {
+  const a = e.target.closest("a"); if (!a) return;
+  const card = document.getElementById(a.getAttribute("href").slice(1)); if (!card) return;
+  e.preventDefault();
+  const smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  card.scrollIntoView({ behavior: smooth ? "smooth" : "auto", block: "start" });
+  try { history.replaceState(null, "", a.getAttribute("href")); } catch (err) {}
+  card.classList.add("flash"); setTimeout(() => card.classList.remove("flash"), 1800);
+});
 const ask = document.getElementById("ask-list");
 ASK_ME.forEach(t => ask.appendChild(el("li", null, t)));
 if (!ASK_ME.length) ask.hidden = true;
@@ -346,5 +386,13 @@ document.addEventListener("click", e => {
 });
 </script>
 
+<script>
+/* Visitor counts: GoatCounter (no cookies, no personal data). Counts page views and which buttons get tapped. */
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-track]"); if (!t) return;
+  try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: "tap/" + t.dataset.track, title: t.dataset.track, event: true }); } catch (err) {}
+}, true);
+</script>
+<script data-goatcounter="https://paigespeople.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
